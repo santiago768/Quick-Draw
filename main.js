@@ -32,13 +32,21 @@ function setup() {
 }
 
 function draw() {
-    check_sketch();
-    strokeWeight(10);
-    stroke("red");
+    
+    strokeWeight(13);
+    stroke(0);
     if (mouseIsPressed) {
         line(pmouseX, pmouseY, mouseX, mouseY);
 
     }
+    check_sketch();
+    if (drawn_sketch == sketchtobedrawn) {
+        answer_holder = "set";
+        score = score + 1;
+        document.getElementById("score").innerHTML = "score:" + score;
+
+   
+}
     
 
 }
@@ -46,7 +54,7 @@ function draw() {
 function check_sketch() {
     timer_counter = timer_counter + 1;
     document.getElementById("timer").innerHTML = "timer: " + timer_counter;
-    if (timer_counter > 1000) {
+    if (timer_counter > 2000) {
         timer_counter = 0;
         timer_check = "completed";
     }
@@ -71,16 +79,9 @@ function classificanvas() {
 function getresults(e, r) {
     if (e) {
         console.error(e);
-    } else {
+    }
         console.log(r);
         drawn_sketch = r[0].label;
-        document.getElementById("yoursketch").innerHTML = "your sketch" + drawn_sketch;
-        if (drawn_sketch == sketchtobedrawn) {
-            answer_holder = "set";
-            score = score + 1;
-            document.getElementById("score").innerHTML = "score:" + score;
-    
-        }
-    }
-
+        document.getElementById("yoursketch").innerHTML = "your sketch " + drawn_sketch;
+        document.getElementById("confidence").innerHTML=" confidence "+r[0].confidence;
 }
